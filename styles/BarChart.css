@@ -1,1 +1,11 @@
 /* BarChart.css */
+
+.bar {
+    border-right: 1px solid linen;
+    display: inline-block;
+    background-color: dodgerblue;
+  }
+
+  .bar:hover {
+    fill: white;
+  }
