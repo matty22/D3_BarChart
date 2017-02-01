@@ -13,6 +13,8 @@
                 var padding = 40;
                 var height = 500;
                 var width = 884;
+                // Scales are causing the problems
+                // Keep working through alignedleft tutorial
                 var xScale = d3.scaleLinear()
                                .domain([0, d3.max(dataset, function(d) {return d[1] })])
                                .range([padding, width - padding]);
