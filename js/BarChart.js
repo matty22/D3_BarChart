@@ -14,18 +14,13 @@
                 var height = 500;
                 var width = 884;
                 var barPadding = 1;
-                // Scales are causing the problems
-                // Keep working through alignedleft tutorial
                 var xScale = d3.scaleLinear()
-                                // Change this domain function to do something like
-                                // Trim the d[0] dates down to just years and coerce them to numbers
-                                // Then use those numbers for the xScale domain
-                               .domain([0, d3.max(dataset, function(d) { return d[1]; })])
+                               .domain([1947, 2015])
                                .range([padding, width - padding]);
-                               
+                                
                 var yScale = d3.scaleLinear()
                                  .domain([0, d3.max(dataset, function(d) { return d[1]; })])
-                                 .range([height, 0]);
+                                 .range([height - padding, padding]);
 
                 var svg = d3.select("#chartDiv")
                             .append("svg")
@@ -37,8 +32,8 @@
                    .enter()
                    .append("rect")
                    .attr("class", "bar")
-                   .attr("x", function(d, i) { return xScale(d[1]); })
-                   .attr("y", function(d, i) { return yScale(d[1]); })
+                   .attr("x", function(d, i) { return xScale(d[0].slice(0,4)) + (i % 4) * width / dataset.length - barPadding})
+                   .attr("y", function(d, i) { return yScale(d[1]) })
                    .attr("width", width / dataset.length - barPadding)
                    .attr("height", function(d, i) { return yScale(height - d[1]); })
                    .attr("fill", "dodgerblue")
@@ -48,12 +43,12 @@
                 
                 var xAxis = d3.axisBottom(xScale);
                 svg.append("g")
-                   .attr("transform", "translate(0," + (height - 10) + ")")
+                   .attr("transform", "translate(0," + (height - padding) + ")")
                    .call(xAxis);
 
                 var yAxis = d3.axisLeft(yScale);
                 svg.append("g")
-                    .attr("transform", "translate(" + 40 + ",35)")
+                    .attr("transform", "translate(" + padding + ",0)")
                     .call(yAxis);
             }
             buildChart(fulldataset);

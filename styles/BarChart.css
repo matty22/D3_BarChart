@@ -3,3 +3,7 @@
   .bar:hover {
     fill: white;
   }
+
+  #title {
+    padding: 20px 0px;
+  }
