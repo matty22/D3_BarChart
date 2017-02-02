@@ -13,19 +13,23 @@
                 var padding = 40;
                 var height = 500;
                 var width = 884;
+                var barPadding = 1;
                 // Scales are causing the problems
                 // Keep working through alignedleft tutorial
                 var xScale = d3.scaleLinear()
-                               .domain([0, d3.max(dataset, function(d) {return d[1] })])
+                                // Change this domain function to do something like
+                                // Trim the d[0] dates down to just years and coerce them to numbers
+                                // Then use those numbers for the xScale domain
+                               .domain([0, d3.max(dataset, function(d) { return d[1]; })])
                                .range([padding, width - padding]);
                                
                 var yScale = d3.scaleLinear()
                                  .domain([0, d3.max(dataset, function(d) { return d[1]; })])
-                                 .range([height - padding, padding]);
+                                 .range([height, 0]);
 
                 var svg = d3.select("#chartDiv")
                             .append("svg")
-                            .attr("width", "100%")
+                            .attr("width", width)
                             .attr("height", height);
 
                 svg.selectAll("rect")
@@ -33,10 +37,10 @@
                    .enter()
                    .append("rect")
                    .attr("class", "bar")
-                   .attr("x", function(d, i) { return xScale(i * 50); })
-                   .attr("y", function(d, i) { return yScale(d[1]) })
-                   .attr("width", 4)
-                   .attr("height", function(d, i) { return d[1]; })
+                   .attr("x", function(d, i) { return xScale(d[1]); })
+                   .attr("y", function(d, i) { return yScale(d[1]); })
+                   .attr("width", width / dataset.length - barPadding)
+                   .attr("height", function(d, i) { return yScale(height - d[1]); })
                    .attr("fill", "dodgerblue")
                    .attr("stroke", "darkblue")
                    .append("title")
