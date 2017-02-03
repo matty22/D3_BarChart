@@ -1,9 +1,23 @@
 /* BarChart.css */
 
+body {
+  background-color: #bababa;
+}
+
+svg {
+  background-color: white;
+  border-radius: 5px;
+}
   .bar:hover {
     fill: white;
   }
 
   #title {
     padding: 20px 0px;
+    color: #1e90ff;
+    font-size: 24px;
+  }
+
+  .label {
+    fill: #5a5a5a;
   }
